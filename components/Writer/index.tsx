@@ -118,7 +118,7 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
         <Input
           type="text"
           value={currentWord}
-          onChange={(e) => setCurrentWord(e.target.value)}
+          onChange={(e) => setCurrentWord(e.target.value.toLowerCase())}
           onKeyDown={(e) => {
             // Start the timer
             if (!isTimerRunning) {
