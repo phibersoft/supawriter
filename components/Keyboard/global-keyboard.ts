@@ -14,11 +14,31 @@ export class GlobalKeyboard extends EventTarget {
   animationDuration = 125;
   animatedClass = "highlight";
 
+  animationInterval: NodeJS.Timeout | null = null;
+
   highlightKey(key: string) {
     const event = new Event("highlight") as HighlightEvent;
     event.key = this._convertSyntheticKeyToRealKey(key);
 
     this.dispatchEvent(event);
+  }
+
+  startAnimation() {
+    if (this.animationInterval) {
+      return;
+    }
+
+    this.animationInterval = setInterval(() => {
+      const key = this.keys.flat()[Math.floor(Math.random() * this.keys.flat().length)];
+      this.highlightKey(key);
+    }, this.animationDuration);
+  }
+
+  stopAnimation() {
+    if (this.animationInterval) {
+      clearInterval(this.animationInterval);
+      this.animationInterval = null;
+    }
   }
 
   _convertSyntheticKeyToRealKey(syntheticKey: string): string {
