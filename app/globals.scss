@@ -34,3 +34,20 @@ section {
     text-wrap: balance;
   }
 }
+
+.highlight {
+  animation: highlight 1s infinite;
+}
+
+// background-color: transparent -> tailwindcss primary color -> transparent
+@keyframes highlight {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: theme("colors.primary.700");
+  }
+  100% {
+    background-color: transparent;
+  }
+}
