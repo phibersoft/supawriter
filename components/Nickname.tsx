@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { FC, useState } from "react";
 
 import { Input } from "@/components/shared";
@@ -16,7 +17,13 @@ const Nickname: FC<NicknameProps> = ({ onNicknameSet }) => {
   const [focused, setFocused] = useState(false);
 
   return (
-    <div className={"flex flex-col items-center p-5"}>
+    <motion.div
+      className={"flex flex-col items-center p-5"}
+      initial={{ x: 100 }}
+      animate={{ x: 0 }}
+      exit={{ x: -100 }}
+      transition={{ duration: 0.2 }}
+    >
       <label htmlFor={"nickname"} className={"text-md font-bold md:text-lg lg:text-2xl"}>
         How do slow people address you?
       </label>
@@ -36,7 +43,7 @@ const Nickname: FC<NicknameProps> = ({ onNicknameSet }) => {
         onBlur={() => setFocused(false)}
         key={`nickname-input`}
       />
-    </div>
+    </motion.div>
   );
 };
 
