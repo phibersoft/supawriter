@@ -22,7 +22,17 @@ export const Input: FC<InputProps> = ({ onFocus, onBlur, onKeyDown, className = 
   };
 
   const _onKeyDown: typeof onKeyDown = (event) => {
-    globalKeyboard.highlightKey(event.key);
+    // Special solution for Unidentified key problem of mobile keyboards
+    if (event.key === "Unidentified") {
+      setTimeout(() => {
+        const inputValue = (event.target as HTMLInputElement).value;
+        const key = inputValue.charAt(inputValue.length - 1).toLowerCase();
+
+        globalKeyboard.highlightKey(key);
+      }, 0);
+    } else {
+      globalKeyboard.highlightKey(event.key);
+    }
 
     if (onKeyDown) {
       onKeyDown(event);
