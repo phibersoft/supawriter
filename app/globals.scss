@@ -20,6 +20,10 @@
   }
 }
 
+html {
+  overflow-x: hidden; // this is avoiding framer-motion's animation glitch
+}
+
 body {
 }
 
