@@ -1,6 +1,8 @@
-export const paragraphApi = {
+const paragraphApi = {
   getRandomParagraph: async () => {
-    const response = await fetch(process.env.PARAGRAPH_API_URL);
+    const response = await fetch(process.env.NEXT_PUBLIC_PARAGRAPH_API_URL);
     return await response.text();
   },
 };
+
+export default paragraphApi;
