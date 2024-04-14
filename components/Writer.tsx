@@ -3,6 +3,7 @@
 import { IconRestore } from "@tabler/icons-react";
 import { FC, useEffect, useMemo, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import colors from "tailwindcss/colors";
 
 import { addScore } from "@/app/actions";
 
@@ -13,6 +14,8 @@ import paragraphApi from "@/services/paragraph-api";
 type WriterProps = {
   initialParagraph: string;
 };
+
+const DURATION = 60;
 
 const Writer: FC<WriterProps> = ({ initialParagraph }) => {
   const [typedWords, setTypedWords] = useState<string[]>([]);
@@ -119,8 +122,8 @@ const Writer: FC<WriterProps> = ({ initialParagraph }) => {
           <IconRestore size={24} />
         </button>
         <CountdownCircleTimer
-          duration={5}
-          colors={"#ff0000"}
+          duration={DURATION}
+          colors={colors.red["600"]}
           isPlaying={isTimerRunning}
           onComplete={() => {
             finish();
