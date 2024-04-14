@@ -56,3 +56,4 @@ Then follow these steps to run the project locally:
 - [Tailwind CSS](https://tailwindcss.com)
 - [Tabler Icons](https://tablericons.com)
 - [ReactCountdownCircleTimer](https://www.npmjs.com/package/react-countdown-circle-timer)
+- [Random Word API](https://random-word-api.vercel.app/)
