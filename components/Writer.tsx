@@ -12,17 +12,17 @@ import { Input, Title } from "@/components/shared";
 import paragraphApi from "@/services/paragraph-api";
 
 type WriterProps = {
-  initialParagraph: string;
+  initialWords: string[];
 };
 
 const DURATION = 60;
 
-const Writer: FC<WriterProps> = ({ initialParagraph }) => {
+const Writer: FC<WriterProps> = ({ initialWords }) => {
   const [typedWords, setTypedWords] = useState<string[]>([]);
   const [currentWord, setCurrentWord] = useState<string>("");
   const [correctWords, setCorrectWords] = useState<string[]>([]);
 
-  const [paragraph, setParagraph] = useState<string>(initialParagraph);
+  const [words, setWords] = useState<string[]>(initialWords);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [tryCount, setTryCount] = useState<number>(0);
@@ -30,7 +30,6 @@ const Writer: FC<WriterProps> = ({ initialParagraph }) => {
 
   const [canType, setCanType] = useState<boolean>(true);
 
-  const words = useMemo(() => paragraph.split(" "), [paragraph]);
   const correctLetterCount = useMemo(() => correctWords.reduce((acc, word) => acc + word.length, 0), [correctWords]);
 
   // Update correctWords when typedWords changes
@@ -51,8 +50,8 @@ const Writer: FC<WriterProps> = ({ initialParagraph }) => {
     setCanType(true);
     setIsLoading(true);
 
-    let paragraph = await paragraphApi.getRandomParagraph();
-    setParagraph(paragraph);
+    const words = await paragraphApi.getRandomWords();
+    setWords(words);
 
     setIsLoading(false);
   };
@@ -73,18 +72,28 @@ const Writer: FC<WriterProps> = ({ initialParagraph }) => {
       <Title>Play</Title>
       <div className={`text-base ${isLoading ? "blur-sm" : ""}`}>
         {words.map((word, index) => {
+          let className = "inline-block p-1 rounded-sm mr-0.5 text-white";
+
+          if (index === typedWords.length) {
+            className += " bg-blue-500";
+          } else {
+            if (typedWords[index] !== undefined) {
+              if (typedWords[index] === word) {
+                className += " bg-green-500";
+              } else {
+                className += " bg-red-500";
+              }
+
+              // Add small blur to word
+              className += " blur-[1.5px]";
+            } else {
+              className += " bg-gray-900";
+            }
+          }
+
           return (
-            <span
-              key={index}
-              className={`${
-                typedWords[index] === word
-                  ? "bg-green-500 text-white"
-                  : typedWords[index] === undefined
-                    ? ""
-                    : "bg-red-500 text-white"
-              } ${index === typedWords.length ? "bg-blue-500 text-white" : ""} mr-1`}
-            >
-              {word}{" "}
+            <span key={index} className={className}>
+              {word}
             </span>
           );
         })}
