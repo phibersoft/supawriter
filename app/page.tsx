@@ -9,7 +9,7 @@ import paragraphApi from "@/services/paragraph-api";
 import { createSupabaseClient } from "@/services/supabase";
 
 const Home: NextPage = async () => {
-  const paragraph = await paragraphApi.getRandomParagraph();
+  const words = await paragraphApi.getRandomWords();
 
   const supabaseServer = createSupabaseClient();
   const { data: leaderboard } = await supabaseServer
@@ -27,7 +27,7 @@ const Home: NextPage = async () => {
         <Nickname />
       </section>
       <section>
-        <Writer initialParagraph={paragraph} />
+        <Writer initialWords={words} />
       </section>
       <section>
         <Leaderboard initialData={leaderboard ?? []} />
