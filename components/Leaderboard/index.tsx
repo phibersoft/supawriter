@@ -16,7 +16,7 @@ type LeaderboardProps = {
 
 const Leaderboard: FC<LeaderboardProps> = ({ initialData }) => {
   const [data, setData] = useState<LeaderboardItem[]>(initialData);
-  const [newUser, setNewUser] = useState<LeaderboardItem | null>(initialData[0]);
+  const [newUser, setNewUser] = useState<LeaderboardItem | null>(null);
 
   useEffect(() => {
     const channel = supabaseBrowser

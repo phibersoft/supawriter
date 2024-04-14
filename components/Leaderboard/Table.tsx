@@ -35,7 +35,11 @@ export const LeaderboardTable: FC<LeaderboardTableProps> = ({ data, newUser }) =
           </thead>
           <tbody>
             {data.map((item, index) => {
-              const rowClass = index % 2 === 0 ? evenRow : oddRow;
+              let rowClass = index % 2 === 0 ? evenRow : oddRow;
+
+              if (newUser && item.id === newUser.id) {
+                rowClass += " blink";
+              }
 
               return (
                 <tr key={item.id} className={rowClass}>
