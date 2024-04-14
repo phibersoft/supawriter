@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SupaWriter
 
-## Getting Started
+SupaWriter is a ten-finger typing game that helps you improve your typing speed and accuracy. It also features a
+leaderboard to see how you are performing compared to others.
 
-First, run the development server:
+## How to play?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. Go to [SupaWriter](https://supawriter.vercel.app).
+2. Enter your nickname.
+3. Start typing in the input box at the bottom of the random paragraph; the timer will begin.
+4. You have 60 seconds to type as much as you can.
+5. After the time is up, you will see your score on the leaderboard.
+
+## Development
+
+To set up the Supabase project and create the leaderboard, run this SQL query:
+
+```sql
+  CREATE TABLE leaderboard (
+    id SERIAL PRIMARY KEY,
+    nickname VARCHAR(255),
+    points INT,
+    created_at TIMESTAMPTZ
+  );
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then follow these steps to run the project locally:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+    # Clone the repository
+    git clone https://github.com/phibersoft/supawriter.git
+    cd supawriter
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    # Install dependencies
+    npm install
 
-## Learn More
+    # Copy the .env.example file and rename it to .env.local
+    cp .env.example .env.local # Linux
+    copy .env.example .env.local # Windows
 
-To learn more about Next.js, take a look at the following resources:
+    # Fill the .env.local file with your Supabase project details
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    # Run the project
+    npm run dev
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    # Open your browser and go to http://localhost:3000
 
-## Deploy on Vercel
+    # If you decide to change something in the database, you can run the following command to generate the types
+    npx supabase gen types typescript --project-id YOUR_PROJECT_ID > database.types.ts
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Technologies
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Next.js](https://nextjs.org)
+- [Supabase](https://supabase.io)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Tabler Icons](https://tablericons.com)
+- [ReactCountdownCircleTimer](https://www.npmjs.com/package/react-countdown-circle-timer)
