@@ -1,11 +1,13 @@
 import { NextPage } from "next";
+import dynamic from "next/dynamic";
 
 import Hero from "@/components/Hero";
 import Leaderboard from "@/components/Leaderboard";
-import Play from "@/components/Play";
 
 import paragraphApi from "@/services/paragraph-api";
 import { createSupabaseClient } from "@/services/supabase";
+
+const Play = dynamic(() => import("@/components/Play"), { ssr: false });
 
 const Home: NextPage = async () => {
   const words = await paragraphApi.getRandomWords();
