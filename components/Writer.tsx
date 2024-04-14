@@ -6,8 +6,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import { addScore } from "@/app/actions";
 
-import { globalKeyboard } from "@/components/Keyboard";
-import { Title } from "@/components/shared";
+import { Input, Title } from "@/components/shared";
 
 import paragraphApi from "@/services/paragraph-api";
 
@@ -15,15 +14,6 @@ type WriterProps = {
   initialParagraph: string;
 };
 
-/*
- * Writer component that displays a paragraph and allows the user to type it word by word.
- * Rules:
- * - User can only type one word at a time. They can't go back to correct a word.
- * - Higlight previously typed words with green/red colors
- * - Highlight the current word being typed with a blue color
- * - Display the number of correctly typed words
- * - Use tailwindcss for styling
- */
 const Writer: FC<WriterProps> = ({ initialParagraph }) => {
   const [typedWords, setTypedWords] = useState<string[]>([]);
   const [currentWord, setCurrentWord] = useState<string>("");
@@ -97,13 +87,11 @@ const Writer: FC<WriterProps> = ({ initialParagraph }) => {
         })}
       </div>
       <div className={`flex items-center justify-center w-full mt-5`}>
-        <input
+        <Input
           type="text"
           value={currentWord}
           onChange={(e) => setCurrentWord(e.target.value)}
           onKeyDown={(e) => {
-            globalKeyboard.highlightKey(e.key);
-
             // Start the timer
             if (!isTimerRunning) {
               setIsTimerRunning(true);
@@ -117,15 +105,9 @@ const Writer: FC<WriterProps> = ({ initialParagraph }) => {
                 break;
             }
           }}
-          className={`
-            bg-transparent border border-gray-300 rounded-md
-            p-2 m-5 w-full max-w-[500px]
-            text-center text-md text-white focus:outline-none
-            placeholder-gray-600
-            disabled:opacity-50
-        `}
           placeholder={"Type to start..."}
           disabled={!canType || isLoading}
+          key={`writer-input`}
         />
         <button
           className={"mr-2"}
