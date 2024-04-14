@@ -23,6 +23,12 @@
 body {
 }
 
+section {
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
