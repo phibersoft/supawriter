@@ -1,6 +1,7 @@
 "use client";
 
 import { IconRestore } from "@tabler/icons-react";
+import { motion } from "framer-motion";
 import { FC, useEffect, useMemo, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import colors from "tailwindcss/colors";
@@ -68,7 +69,14 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
   };
 
   return (
-    <div className="flex flex-col items-center p-5 relative overflow-hidden" id={"play"}>
+    <motion.div
+      className="flex flex-col items-center p-5 relative overflow-hidden"
+      // Come to screen from right
+      initial={{ x: 100 }}
+      animate={{ x: 0 }}
+      exit={{ x: -100 }}
+      transition={{ duration: 0.2 }}
+    >
       <Title>Play</Title>
       <div className={`text-base flex items-center justify-center ${isLoading ? "blur-sm" : ""}`}>
         {words.map((word, index) => {
@@ -155,7 +163,7 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
           {correctLetterCount} letters ({correctWords.length} words) typed correctly, awesome!
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
