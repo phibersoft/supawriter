@@ -4,75 +4,23 @@ import { IconBrandGithubFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import { FC, ReactNode } from "react";
 
-import MobileDrawer from "@/components/MobileDrawer";
 import { Button } from "@/components/shared";
 
 type TemplateProps = {
   children: ReactNode;
 };
 
-type NavItem = {
-  label: string;
-  href: string;
-};
-
-const navMenu: NavItem[] = [
-  { label: "Play", href: "#play" },
-  { label: "Leaderboard", href: "#leaderboard" },
-];
-
 const Template: FC<TemplateProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-gray-400">
+    <div className="min-h-screen bg-[#030303] text-gray-200">
       <div className={"container"}>
         <nav className="flex items-center justify-between py-8">
-          <MobileDrawer>
-            <div className={"flex flex-1 flex-col"}>
-              {navMenu.map((item, index) => {
-                const className = "p-4 transition hover:text-primary-500";
-
-                if (item.href.startsWith("#")) {
-                  return (
-                    <a key={index} href={item.href} className={className}>
-                      {item.label}
-                    </a>
-                  );
-                }
-                return (
-                  <Link key={index} href={item.href} className={className}>
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-          </MobileDrawer>
-
           <Link href={"/"} className={"text-xl font-semibold text-primary-500"}>
             SupaWriter
           </Link>
-
-          <div className={"hidden flex-1 justify-center space-x-9 md:flex"}>
-            {navMenu.map((item, index) => {
-              const className = "font-semibold transition hover:text-primary-500";
-
-              if (item.href.startsWith("#")) {
-                return (
-                  <a key={index} href={item.href} className={className}>
-                    {item.label}
-                  </a>
-                );
-              }
-              return (
-                <Link key={index} href={item.href} className={className}>
-                  {item.label}
-                </Link>
-              );
-            })}
-          </div>
-
           <div className={"flex items-center space-x-4"}>
             <Button className={"flex items-center gap-2"} href={process.env.NEXT_PUBLIC_PROJECT_LINK}>
-              Github
+              <span className={"hidden sm:inline"}>Github</span>
               <IconBrandGithubFilled size={20} />
             </Button>
           </div>
