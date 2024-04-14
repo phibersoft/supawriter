@@ -11,11 +11,11 @@ import { Input, Title } from "@/components/shared";
 
 import paragraphApi from "@/services/paragraph-api";
 
+import { WRITER_DURATION } from "@/CONSTANTS";
+
 type WriterProps = {
   initialWords: string[];
 };
-
-const DURATION = 60;
 
 const Writer: FC<WriterProps> = ({ initialWords }) => {
   const [typedWords, setTypedWords] = useState<string[]>([]);
@@ -135,7 +135,7 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
           <IconRestore size={24} />
         </button>
         <CountdownCircleTimer
-          duration={DURATION}
+          duration={WRITER_DURATION}
           colors={colors.red["600"]}
           isPlaying={isTimerRunning}
           onComplete={() => {
