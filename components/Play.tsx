@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
 import Nickname from "@/components/Nickname";
 import Writer from "@/components/Writer";
@@ -10,19 +10,13 @@ type PlayProps = {
 };
 
 const Play: FC<PlayProps> = ({ initialWords }) => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [hasNicknameSet, setHasNicknameSet] = useState<boolean>(false);
-
-  useEffect(() => {
-    setLoading(false);
-    if (window.localStorage.getItem("nickname")) {
-      setHasNicknameSet(true);
+  const [hasNicknameSet, setHasNicknameSet] = useState<boolean>(() => {
+    try {
+      return !!window.localStorage.getItem("nickname");
+    } catch {
+      return false;
     }
-  }, []);
-
-  if (loading) {
-    return null;
-  }
+  });
 
   if (hasNicknameSet) {
     return <Writer initialWords={initialWords} />;
