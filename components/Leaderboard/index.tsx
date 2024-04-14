@@ -4,9 +4,11 @@ import { FC, useEffect, useState } from "react";
 
 import { Title } from "@/components/shared";
 
-import { formatRelativeTime, supabaseBrowser } from "@/utils";
+import { supabaseBrowser } from "@/utils";
 
 import { LeaderboardItem } from "@/types";
+
+import { LeaderboardTable } from "./Table";
 
 type LeaderboardProps = {
   initialData: Array<LeaderboardItem>;
@@ -14,6 +16,7 @@ type LeaderboardProps = {
 
 const Leaderboard: FC<LeaderboardProps> = ({ initialData }) => {
   const [data, setData] = useState<LeaderboardItem[]>(initialData);
+  const [newUser, setNewUser] = useState<LeaderboardItem | null>(initialData[0]);
 
   useEffect(() => {
     const channel = supabaseBrowser
@@ -46,6 +49,7 @@ const Leaderboard: FC<LeaderboardProps> = ({ initialData }) => {
 
           newData.splice(i, 0, newRecord);
           setData(newData);
+          setNewUser(newRecord);
         },
       )
       .subscribe();
@@ -55,45 +59,11 @@ const Leaderboard: FC<LeaderboardProps> = ({ initialData }) => {
     };
   }, [data]);
 
-  const evenRow = "bg-gray-700 bg-opacity-30";
-  const oddRow = "bg-gray-800 bg-opacity-15";
-  const headerCell =
-    "px-2 py-2 text-center font-medium text-gray-300 uppercase tracking-wider text-xs md:text-sm md:px-3 md:py-3 lg:text-lg lg:px-6 lg:py-3";
-  const rowCell =
-    "px-2 py-2 whitespace-nowrap text-sm text-center text-gray-300 text-xs md:text-sm md:px-3 md:py-3 lg:text-lg lg:px-6 lg:py-4";
-
   return (
     <div id={"leaderboard"}>
       <Title>Leaderboard</Title>
-      <table className={"w-full mb-2 border-corners"}>
-        <thead>
-          <tr>
-            <th className={`${headerCell} font-bold`}>Rank</th>
-            <th className={headerCell}>Nickname</th>
-            <th className={headerCell}>Points</th>
-            <th className={headerCell}>Writed At</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => {
-            const rowClass = index % 2 === 0 ? evenRow : oddRow;
-
-            return (
-              <tr key={item.id} className={rowClass}>
-                <td className={`${rowCell} font-bold`}>#{index < 50 ? index + 1 : "50+"}</td>
-                <td className={rowCell}>{item.nickname}</td>
-                <td className={rowCell}>{item.points}</td>
-                <td className={rowCell}>{formatRelativeTime(new Date(item.created_at))}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
-      <p
-        // Dead text
-        className={"text-center text-gray-400 text-sm"}
-      >
+      <LeaderboardTable data={data} newUser={newUser} />
+      <p className={"text-center text-gray-400 text-sm"}>
         * Save your F5 key for emergencies; the leaderboard updates in real-time thanks to{" "}
         <a href="https://supabase.io" target="_blank" rel="noopener noreferrer" className={"underline"}>
           Supabase Realtime
