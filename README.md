@@ -8,7 +8,7 @@ leaderboard to see how you are performing compared to others.
 1. Go to [SupaWriter](https://supawriter.vercel.app).
 2. Enter your nickname.
 3. Start typing in the input box at the bottom of the random paragraph; the timer will begin.
-4. You have 60 seconds to type as much as you can.
+4. You have 30 seconds to type as much as you can.
 5. After the time is up, you will see your score on the leaderboard.
 
 ## Development
