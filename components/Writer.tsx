@@ -78,7 +78,7 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
       transition={{ duration: 0.2 }}
     >
       <Title>Play</Title>
-      <div className={`text-base flex items-center justify-center ${isLoading ? "blur-sm" : ""}`}>
+      <div className={`text-base flex items-center justify-center flex-wrap ${isLoading ? "blur-sm" : ""}`}>
         {words.map((word, index) => {
           let className = "inline-block p-1 rounded-sm mr-0.5 text-white duration-100";
 
