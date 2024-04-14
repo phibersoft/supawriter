@@ -8,11 +8,13 @@ import colors from "tailwindcss/colors";
 
 import { addScore } from "@/app/actions";
 
+import { WriterResult } from "@/components/Writer/Result";
 import { Input, Title } from "@/components/shared";
 
 import paragraphApi from "@/services/paragraph-api";
 
 import { WRITER_DURATION } from "@/CONSTANTS";
+
 
 type WriterProps = {
   initialWords: string[];
@@ -63,7 +65,9 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
     setTryCount((prev) => prev + 1);
 
     // Update the leaderboard
-    await addScore(window.localStorage.getItem("nickname") || "Anonymous", correctLetterCount);
+    if (correctLetterCount > 0) {
+      await addScore(window.localStorage.getItem("nickname") || "Anonymous", correctLetterCount);
+    }
     await new Promise((resolve) => setTimeout(resolve, 3500));
     await reset();
   };
@@ -153,15 +157,7 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
           strokeWidth={3}
           key={`countdown-${tryCount}`}
         />
-
-        {/*  Results - only popup when user is not be able to type  */}
-        <div
-          className={`absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center text-white text-2xl font-bold backdrop-blur-sm transform transition-transform duration-300 ${
-            canType ? "translate-y-full" : ""
-          }`}
-        >
-          {correctLetterCount} letters ({correctWords.length} words) typed correctly, awesome!
-        </div>
+        <WriterResult correctLetterCount={correctLetterCount} correctWordCount={correctWords.length} show={!canType} />
       </div>
     </motion.div>
   );
