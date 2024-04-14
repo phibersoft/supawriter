@@ -6,6 +6,8 @@ import { FC, ReactNode } from "react";
 
 import { Button } from "@/components/shared";
 
+import LogoSVG from "@/public/logo.svg";
+
 type TemplateProps = {
   children: ReactNode;
 };
@@ -15,7 +17,8 @@ const Template: FC<TemplateProps> = ({ children }) => {
     <div className="min-h-screen bg-[#030303] text-gray-200">
       <div className={"container"}>
         <nav className="flex items-center justify-between py-8">
-          <Link href={"/"} className={"text-xl font-semibold text-primary-500"}>
+          <Link href={"/"} className={"text-xl font-semibold text-primary-500 flex items-center gap-2"}>
+            <img src={LogoSVG.src} alt="SupaWriter" className={"h-6"} />
             SupaWriter
           </Link>
           <div className={"flex items-center space-x-4"}>
