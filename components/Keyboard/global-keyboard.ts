@@ -11,7 +11,7 @@ export class GlobalKeyboard extends EventTarget {
     ["shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "rshift"],
     ["ctrl", "alt", "space", "alt gr", "rctrl"],
   ];
-  animationDuration = 125;
+  animationDuration = 175;
   animatedClass = "highlight";
 
   animationInterval: NodeJS.Timeout | null = null;
