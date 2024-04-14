@@ -28,6 +28,14 @@ const Keyboard: FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    globalKeyboard.startAnimation();
+
+    return () => {
+      globalKeyboard.stopAnimation();
+    };
+  }, []);
+
   return (
     <div className={"flex flex-col w-full"}>
       {globalKeyboard.keys.map((row, rowIndex) => (
