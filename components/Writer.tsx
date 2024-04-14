@@ -70,24 +70,28 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
   return (
     <div className="flex flex-col items-center p-5 relative overflow-hidden" id={"play"}>
       <Title>Play</Title>
-      <div className={`text-base ${isLoading ? "blur-sm" : ""}`}>
+      <div className={`text-base flex items-center justify-center ${isLoading ? "blur-sm" : ""}`}>
         {words.map((word, index) => {
-          let className = "inline-block p-1 rounded-sm mr-0.5 text-white";
+          let className = "inline-block p-1 rounded-sm mr-0.5 text-white duration-100";
 
-          if (index === typedWords.length) {
-            className += " bg-blue-500";
+          if (index > typedWords.length + 5 || index < typedWords.length - 1) {
+            className += " hidden";
           } else {
-            if (typedWords[index] !== undefined) {
-              if (typedWords[index] === word) {
-                className += " bg-green-500";
-              } else {
-                className += " bg-red-500";
-              }
-
-              // Add small blur to word
-              className += " blur-[1.5px]";
+            if (index === typedWords.length) {
+              className += " bg-blue-500";
             } else {
-              className += " bg-gray-900";
+              if (typedWords[index] !== undefined) {
+                if (typedWords[index] === word) {
+                  className += " bg-green-500";
+                } else {
+                  className += " bg-red-500";
+                }
+
+                // Add small blur to word
+                className += " blur-[1.5px]";
+              } else {
+                className += " bg-gray-900";
+              }
             }
           }
 
