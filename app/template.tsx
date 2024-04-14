@@ -4,8 +4,8 @@ import { IconBrandGithubFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import { FC, ReactNode } from "react";
 
-import Button from "@/components/Button";
 import MobileDrawer from "@/components/MobileDrawer";
+import { Button } from "@/components/shared";
 
 type TemplateProps = {
   children: ReactNode;
