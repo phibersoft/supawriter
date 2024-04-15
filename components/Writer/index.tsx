@@ -15,7 +15,6 @@ import paragraphApi from "@/services/paragraph-api";
 
 import { WRITER_DURATION } from "@/CONSTANTS";
 
-
 type WriterProps = {
   initialWords: string[];
 };
@@ -114,7 +113,9 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
           );
         })}
       </div>
-      <div className={`flex items-center justify-center w-full mt-5`}>
+      <div className={`flex items-center justify-center w-full mt-5 gap-2`}>
+        {/* This div balances the flex so input is always centered */}
+        <div className={"w-[48px] h-[1px]"} />
         <Input
           type="text"
           value={currentWord}
@@ -134,11 +135,11 @@ const Writer: FC<WriterProps> = ({ initialWords }) => {
             }
           }}
           placeholder={"Type to start..."}
+          className={"m-0"}
           disabled={!canType || isLoading}
           key={`writer-input`}
         />
         <button
-          className={"mr-2"}
           onClick={async () => {
             await reset();
           }}
